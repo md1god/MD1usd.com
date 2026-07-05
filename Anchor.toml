@@ -1,0 +1,23 @@
+
+skip_local_validator = true
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+md1usd_solana = "3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8"
+
+[provider]
+cluster = "mainnet"
+wallet = '~\.config/solana/id.json'
+
+[scripts]
+test = "cargo test"
+
+[hooks]
+[programs.devnet]
+md1usd_solana = "3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8"
+
+[programs.mainnet]
+md1usd_solana = "3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8"

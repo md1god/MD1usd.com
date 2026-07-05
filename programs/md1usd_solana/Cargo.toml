@@ -1,0 +1,25 @@
+[package]
+name = "md1usd_solana"
+version = "0.1.0"
+description = "Created with Anchor"
+edition.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "md1usd_solana"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+[dependencies]
+anchor-lang = "0.30.1"
+anchor-spl = { version = "0.30.1", features = ["metadata"] }
+solana-program = "1.18.26"
