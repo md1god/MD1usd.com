@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Droid+Arabic+Kufi:wght@400;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background-color: #f9fafb;
+  direction: rtl;
+  text-align: right;
+}
+
+body.ar {
+  font-family: 'Droid Arabic Kufi', 'Segoe UI', sans-serif;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a648;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b89540;
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(201, 166, 72, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(201, 166, 72, 0.6);
+  }
+}
+
+@keyframes glowBlue {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(14, 165, 233, 0.6);
+  }
+}
+
+@keyframes glowRed {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-glowBlue {
+  animation: glowBlue 2s ease-in-out infinite;
+}
+
+.animate-glowRed {
+  animation: glowRed 2s ease-in-out infinite;
+}
+
+/* Utility Classes */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply px-6 py-3 bg-gradient-gold text-dark-900 font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border-2 border-gold-500 text-gold-500 font-semibold rounded-lg hover:bg-gold-50 transition-all duration-300;
+}
+
+.btn-blue {
+  @apply px-6 py-3 bg-gradient-blue text-white font-semibold rounded-lg hover:shadow-blue transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-red {
+  @apply px-6 py-3 bg-gradient-red text-white font-semibold rounded-lg hover:shadow-red transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-dark {
+  @apply px-6 py-3 bg-black-900 text-gold-500 font-semibold rounded-lg hover:bg-black-800 transition-all duration-300 border border-gold-500;
+}
+
+.section-title {
+  @apply text-4xl md:text-5xl font-bold text-dark-900 mb-12 text-center;
+}
+
+.card-base {
+  @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6;
+}
+
+.gradient-text {
+  @apply bg-gradient-gold bg-clip-text text-transparent;
+}
+
+.gradient-text-blue {
+  @apply bg-gradient-blue bg-clip-text text-transparent;
+}
+
+.gradient-text-red {
+  @apply bg-gradient-red bg-clip-text text-transparent;
+}
+
+.gradient-text-premium {
+  @apply bg-gradient-premium bg-clip-text text-transparent;
+}
+
+/* Glass Morphism */
+.glass {
+  @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-xl;
+}

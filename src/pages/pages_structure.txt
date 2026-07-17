@@ -1,0 +1,57 @@
+# 40 صفحة موسعة لـ MD1usd.com
+
+## الصفحات الأساسية (5)
+1. Home.tsx - الصفحة الرئيسية
+2. Tokenomics.tsx - التوزيع الاقتصادي
+3. Security.tsx - الأمان والتدقيق
+4. Whitepaper.tsx - الورقة البيضاء
+5. Roadmap.tsx - خارطة الطريق
+
+## صفحات التعليم والتوعية (8)
+6. DeFi101.tsx - مقدمة عن DeFi
+7. StablecoinGuide.tsx - دليل العملات المستقرة
+8. IslamicFinance.tsx - التمويل الإسلامي
+9. BlockchainBasics.tsx - أساسيات البلوكتشين
+10. SmartContracts.tsx - العقود الذكية
+11. WalletGuide.tsx - دليل المحافظ
+12. SecurityBestPractices.tsx - أفضل ممارسات الأمان
+13. GlossaryTerms.tsx - قاموس المصطلحات
+
+## صفحات الشبكات (5)
+14. EthereumNetwork.tsx - شبكة Ethereum
+15. PolygonNetwork.tsx - شبكة Polygon
+16. BNBNetwork.tsx - شبكة BNB
+17. SolanaNetwork.tsx - شبكة Solana
+18. NetworkComparison.tsx - مقارنة الشبكات
+
+## صفحات المجتمع (6)
+19. Community.tsx - المجتمع
+20. Ambassadors.tsx - السفراء
+21. Events.tsx - الأحداث
+22. Governance.tsx - الحوكمة
+23. Voting.tsx - نظام التصويت
+24. WallOfBelievers.tsx - جدار المؤمنين
+
+## صفحات المدونة والأخبار (5)
+25. Blog.tsx - المدونة
+26. News.tsx - الأخبار
+27. Announcements.tsx - الإعلانات
+28. CaseStudies.tsx - دراسات الحالة
+29. MediaKit.tsx - مجموعة الوسائط
+
+## صفحات الدعم والمساعدة (6)
+30. FAQ.tsx - الأسئلة الشائعة
+31. Support.tsx - الدعم الفني
+32. Troubleshooting.tsx - استكشاف الأخطاء
+33. Contact.tsx - الاتصال بنا
+34. Careers.tsx - الوظائف
+35. BugBounty.tsx - برنامج Bug Bounty
+
+## صفحات الشراكات والتكامل (4)
+36. Partnerships.tsx - الشراكات
+37. Integrations.tsx - التكاملات
+38. APIDocumentation.tsx - توثيق API
+39. DeveloperResources.tsx - موارد المطورين
+
+## صفحات إضافية (1)
+40. Dashboard.tsx - لوحة التحكم الحية
