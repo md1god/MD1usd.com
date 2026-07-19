@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output (يُبنى تلقائياً عبر GitHub Actions، لا حاجة لرفعه يدوياً)
+dist/
+
+# Vite cache
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / OS
+.DS_Store
+.vscode/
+*.swp
+
+# Env files (لا ترفع أي مفاتيح أو أسرار)
+.env
+.env.local
