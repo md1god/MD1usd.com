@@ -78,7 +78,6 @@ const Navbar: React.FC = () => {
     { label: 'المنصة', url: 'https://mdm1.org/hub.html', icon: '⛩️' },
      { label: 'message', url: 'https://mdm1.org/pages/whitepaper.html', icon: '📜' },
     { label: 'ATM', url: 'https://mdm1.org/pages/ATM.html', icon: '🏧' },
-    { label: 'دخول', url: 'https://mdm1.org/pages/join.html', icon: '🔑' },
   ];
 
   return (
