@@ -13,7 +13,7 @@ const MediaKit: React.FC = () => {
     { name: 'شعار M1D — نسخة مسطّحة', file: '/images/logo_v6_flat.png' },
     { name: 'رمز عين حورس الذهبي', file: '/images/horus_eye_gold.png' },
     { name: 'عملة MD1USD الذهبية (تصور ثلاثي الأبعاد)', file: '/images/gold_coin_md1usd.jpg' },
-    { name: 'خلفية سينمائية بهوية المشروع', file: '/images/hero_background.jpg' },
+    { name: 'شرعية المشروع', file: '/images/hero_background.jpeg' },
     { name: 'عملة MDm1 الذهبية الكاملة', file: '/images/md1_coin_pharaonic.jpg' },
     { name: 'شعار الجعران المجنح', file: '/images/md1_scarab_emblem.jpg' },
     { name: 'خاتم عين حورس', file: '/images/md1_eye_of_horus.jpg' },
