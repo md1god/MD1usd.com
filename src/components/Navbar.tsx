@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
   ];
 
   const externalLinks = [
-    { label: 'MDM1', url: 'https://mdm1.org', icon: '⛩️' },
+    { label: 'MDM1', url: 'https://mdm1.org/pages/ATM.html', icon: '⛩️' },
     { label: 'ATM', url: 'https://mdm1.org/pages/ATM.html', icon: '🏧' },
     { label: 'دخول', url: 'https://mdm1.org/pages/join.html', icon: '🔑' },
   ];
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
       <div className="container-custom flex justify-between items-center py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <img src="/images/md1usd_logo.png" alt="MD1USD" className="w-10 h-10 object-contain" />
+          <img src="/images/md1usd_logo.png" alt="MD1USD" className="w-20 h-20 object-contain" />
           <div className="flex flex-col">
             <span className="text-xl font-bold text-gold-500">MD1</span>
             <span className="text-xs text-blue-400">STABLECOIN</span>
