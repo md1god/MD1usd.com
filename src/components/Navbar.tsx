@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
       <div className="container-custom flex justify-between items-center py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <img src="/images/logo-32.png" alt="MD1USD" className="w-20 h-20 object-contain" />
+          <img src="/images/logo-180.jpeg" alt="MD1USD" className="w-32 h-32 object-contain" />
           <div className="flex flex-col">
             <span className="text-xl font-bold text-gold-500">MD1</span>
             <span className="text-xs text-blue-400">STABLECOIN</span>
