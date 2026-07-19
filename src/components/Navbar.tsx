@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
   ];
 
   const externalLinks = [
-    { label: 'MDM1', url: 'https://mdm1.org/pages/ATM.html', icon: '⛩️' },
+    { label: 'MDM1', url: 'https://mdm1.org/pages/hub.html', icon: '⛩️' },
     { label: 'ATM', url: 'https://mdm1.org/pages/ATM.html', icon: '🏧' },
     { label: 'دخول', url: 'https://mdm1.org/pages/join.html', icon: '🔑' },
   ];
