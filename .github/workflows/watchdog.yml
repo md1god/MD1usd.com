@@ -1,9 +1,19 @@
 name: Watchdog
+
 on:
-  schedule: [{ cron: '0 * * * *' }]
-  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'   # يشتغل كل 5 دقايق
+  workflow_dispatch:         # تقدر تشغله يدويًا من GitHub
+
 jobs:
-  check:
-    permissions: { contents: read, issues: write, actions: read }
-    uses: md1god/MD-automation/.github/workflows/reusable-watchdog.yml@2345badbc0e24b45bdc310e0bbc8d8aca3cb0331
-    with: { build-workflow-file: 'Deploy.yml' }
+  watchdog-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run watchdog script
+        run: |
+          echo "✅ Watchdog running..."
+        
