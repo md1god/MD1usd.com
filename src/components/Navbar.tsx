@@ -74,9 +74,9 @@ const Navbar: React.FC = () => {
   ];
 
   const externalLinks = [
-     { label: 'MDM1', url: 'https://mdm1.org', icon: '🦅' },
-    { label: 'المنصة', url: 'https://mdm1.org/hub.html', icon: '⛩️' },
-     { label: 'message', url: 'https://mdm1.org/whitepaper.html', icon: '📜' },
+     { label: 'MDm1.org', url: 'https://mdm1.org', icon: '🦅' },
+    { label: 'The Platform', url: 'https://mdm1.org/hub.html', icon: '⛩️' },
+     { label: 'our Mission', url: 'https://mdm1.org/whitepaper.html', icon: '📜' },
     { label: 'ATM', url: 'https://mdm1.org/pages/ATM.html', icon: '🏧' },
   ];
 
