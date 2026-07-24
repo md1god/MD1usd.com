@@ -1,0 +1,30 @@
+{
+  "telegram": {
+    "enabled": true,
+    "auto_welcome": true,
+    "daily_posts": 3,
+    "weekly_contests": true
+  },
+  "twitter": {
+    "enabled": true,
+    "auto_tweets": true,
+    "retweet_strategy": "engagement_based",
+    "hashtags": [
+      "MD1USD",
+      "Stablecoin",
+      "DeFi",
+      "IslamicFinance"
+    ]
+  },
+  "discord": {
+    "enabled": true,
+    "auto_roles": true,
+    "moderation": true,
+    "events": true
+  },
+  "email": {
+    "enabled": true,
+    "newsletters": "weekly",
+    "announcements": true
+  }
+}
