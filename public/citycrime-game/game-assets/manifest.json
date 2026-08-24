@@ -1,0 +1,19 @@
+{
+  "license": "Original procedural low-poly assets generated for this project; no third-party copyrighted game assets included.",
+  "vehicles": {
+    "car": "/game-assets/vehicles/car.glb",
+    "motorcycle": "/game-assets/vehicles/motorcycle.glb",
+    "boat": "/game-assets/vehicles/boat.glb",
+    "aircraft": "/game-assets/vehicles/aircraft.glb"
+  },
+  "characters": {
+    "soldier": "/game-assets/characters/soldier.glb"
+  },
+  "environment": {
+    "building": "/game-assets/environment/building_a.glb",
+    "warehouse": "/game-assets/environment/warehouse.glb"
+  },
+  "props": {
+    "lootCrate": "/game-assets/props/loot_crate.glb"
+  }
+}
