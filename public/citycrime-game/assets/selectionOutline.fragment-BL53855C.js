@@ -1,4 +1,4 @@
-import{S as t}from"./index-DZ83VRRa.js";const e="selectionOutlinePixelShader",l=`var maskSamplerSampler: sampler;var maskSampler: texture_2d<f32>;var depthSamplerSampler: sampler;var depthSampler: texture_2d<f32>;varying vUV: vec2f;uniform screenSize: vec2f;uniform outlineColor: vec3f;uniform outlineThickness: f32;uniform occlusionStrength: f32;uniform occlusionThreshold: f32;
+import{S as t}from"./index-y2PscmvO.js";const e="selectionOutlinePixelShader",l=`var maskSamplerSampler: sampler;var maskSampler: texture_2d<f32>;var depthSamplerSampler: sampler;var depthSampler: texture_2d<f32>;varying vUV: vec2f;uniform screenSize: vec2f;uniform outlineColor: vec3f;uniform outlineThickness: f32;uniform occlusionStrength: f32;uniform occlusionThreshold: f32;
 #define CUSTOM_FRAGMENT_DEFINITIONS
 @fragment
 fn main(input: FragmentInputs)->FragmentOutputs {
