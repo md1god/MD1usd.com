@@ -1,4 +1,4 @@
-import{S as r}from"./index-_cH3B_V1.js";const e="screenSpaceCurvaturePixelShader",t=`varying vUV: vec2f;var textureSamplerSampler: sampler;var textureSampler: texture_2d<f32>;var normalSampler: texture_2d<f32>;uniform curvature_ridge: f32;uniform curvature_valley: f32;
+import{S as r}from"./index-lV9emZTF.js";const e="screenSpaceCurvaturePixelShader",t=`varying vUV: vec2f;var textureSamplerSampler: sampler;var textureSampler: texture_2d<f32>;var normalSampler: texture_2d<f32>;uniform curvature_ridge: f32;uniform curvature_valley: f32;
 #ifndef CURVATURE_OFFSET
 #define CURVATURE_OFFSET 1
 #endif
