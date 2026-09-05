@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بوابة الألعاب</title>
+
+<style>
+:root {
+  /* هتتغير كلها تلقائيًا من data/theme.json عند تحميل الصفحة */
+  --bg-dark: #0b0c14;
+  --bg-card: #171826;
+  --accent-pink: #ff2d78;
+  --accent-cyan: #00d4ff;
+  --accent-yellow: #ffcc00;
+  --accent-purple: #8b5cf6;
+  --accent-green: #2bd67b;
+  --card-radius: 10px;
+  --site-font: 'Tajawal', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--site-font); user-select: none; }
+
+html, body { max-width: 100%; overflow-x: hidden; }
+
+body {
+  background: var(--bg-dark);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.brand-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; font-weight: 900; color: #fff; }
+.brand-badge { background: var(--accent-pink); padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.85rem; }
+#themeLabel { font-size: 0.75rem; color: var(--text-sub, #9aa0b8); opacity: 0.8; }
+
+.main-container { flex: 1; width: 100%; padding: 0.8rem 1rem 2rem; }
+
+.toolbar-section { display: flex; gap: 0.7rem; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap; }
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.6rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--card-radius);
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+}
+.search-input:focus { border-color: var(--accent-cyan); }
+
+#gamesCount { color: var(--accent-green); font-size: 0.85rem; font-weight: 700; white-space: nowrap; }
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  list-style: none;
+}
+@media (min-width: 500px) { .games-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 700px) { .games-grid { grid-template-columns: repeat(5, 1fr); } }
+@media (min-width: 950px) { .games-grid { grid-template-columns: repeat(6, 1fr); } }
+@media (min-width: 1200px) { .games-grid { grid-template-columns: repeat(7, 1fr); } }
+@media (min-width: 1500px) { .games-grid { grid-template-columns: repeat(8, 1fr); } }
+
+.game-card {
+  background: var(--bg-card);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+.game-card:hover { transform: translateY(-3px); }
+
+.game-thumb { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #0a0920; }
+.game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.play-badge {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.12s ease;
+}
+.game-card:hover .play-badge { opacity: 1; }
+.play-btn-circle {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--accent-cyan);
+  color: #0b0c14; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+
+.game-details { padding: 0.4rem 0.15rem 0; }
+.game-title { font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.game-cat-tag { font-size: 0.66rem; color: var(--accent-yellow); }
+
+.portal-loader { text-align: center; padding: 3rem 1rem; color: #9aa0b8; }
+.spinner {
+  width: 36px; height: 36px; margin: 0 auto 1rem;
+  border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--accent-cyan);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header class="app-navbar">
+  <div class="brand-logo">
+    <span class="brand-badge">MDM1</span>
+    <span>بوابة الألعاب</span>
+  </div>
+  <span id="themeLabel"></span>
+</header>
+
+<main class="main-container">
+  <div class="toolbar-section">
+    <input id="gamesSearch" class="search-input" type="search" placeholder="ابحث عن لعبة..." autocomplete="off">
+    <span id="gamesCount">جاري التحميل...</span>
+  </div>
+
+  <div id="portalLoader" class="portal-loader">
+    <div class="spinner"></div>
+    <div>جاري تحميل مكتبة الألعاب...</div>
+  </div>
+
+  <ul class="games-grid" id="gamesGrid"></ul>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  const root = document.documentElement.style;
+
+  /* تحميل الثيم من data/theme.json وتطبيقه فورًا */
+  async function loadTheme() {
+    try {
+      const res = await fetch("data/theme.json", { cache: "no-store" });
+      if (!res.ok) return;
+      const t = await res.json();
+      root.setProperty("--bg-dark", t.bgDark);
+      root.setProperty("--bg-card", t.bgCard);
+      root.setProperty("--accent-pink", t.pink);
+      root.setProperty("--accent-cyan", t.cyan);
+      root.setProperty("--accent-yellow", t.yellow);
+      root.setProperty("--accent-purple", t.purple);
+      root.setProperty("--accent-green", t.green);
+      root.setProperty("--card-radius", t.radius || "10px");
+      if (t.font) root.setProperty("--site-font", t.font);
+      const label = document.getElementById("themeLabel");
+      if (label && t.name) label.textContent = "🎨 " + t.name;
+    } catch (err) {
+      console.warn("تعذر تحميل data/theme.json — هيستخدم الشكل الافتراضي.", err);
+    }
+  }
+
+  /* تحميل الألعاب من data/games.json (نفس بنية الموقع الأول) */
+  const gamesGrid = document.getElementById("gamesGrid");
+  const gamesSearch = document.getElementById("gamesSearch");
+  const gamesCount = document.getElementById("gamesCount");
+  const portalLoader = document.getElementById("portalLoader");
+
+  let ALL_GAMES = [];
+
+  function escapeHTML(str) {
+    return String(str || "").replace(/[&<>"']/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[m]));
+  }
+
+  function renderGames(list) {
+    gamesGrid.innerHTML = "";
+    gamesCount.textContent = list.length.toLocaleString("ar-EG") + " لعبة متاحة";
+    const fragment = document.createDocumentFragment();
+    list.forEach(game => {
+      const li = document.createElement("li");
+      li.className = "game-card";
+      const title = escapeHTML(game.title || "لعبة");
+      const cat = escapeHTML(game.category || "");
+      const thumb = game.thumb
+        ? `<img src="${escapeHTML(game.thumb)}" alt="${title}" loading="lazy">`
+        : `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:2rem;">🎮</div>`;
+      li.innerHTML = `
+        <div class="game-thumb">
+          ${thumb}
+          <div class="play-badge"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="game-details">
+          <div class="game-title">${title}</div>
+          <div class="game-cat-tag">${cat}</div>
+        </div>`;
+      li.addEventListener("click", () => {
+        if (game.url) window.open(game.url, "_blank", "noopener");
+      });
+      fragment.appendChild(li);
+    });
+    gamesGrid.appendChild(fragment);
+  }
+
+  async function loadGames() {
+    try {
+      const res = await fetch("data/games.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("فشل التحميل");
+      const data = await res.json();
+      ALL_GAMES = data.filter(g => g && g.url);
+      portalLoader.style.display = "none";
+      renderGames(ALL_GAMES);
+    } catch (err) {
+      portalLoader.innerHTML = "⚠️ تعذر تحميل مكتبة الألعاب. تأكد من مسار data/games.json";
+    }
+  }
+
+  let searchTimer;
+  gamesSearch.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      const q = gamesSearch.value.trim().toLowerCase();
+      const filtered = q
+        ? ALL_GAMES.filter(g => [g.title, g.category, g.tags].filter(Boolean).join(" ").toLowerCase().includes(q))
+        : ALL_GAMES;
+      renderGames(filtered);
+    }, 150);
+  });
+
+  loadTheme();
+  loadGames();
+})();
+</script>
+</body>
+</html>
