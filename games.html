@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بوابة الألعاب</title>
+<title>بوابة الألعاب - MDM1</title>
 
 <style>
 :root {
-  /* هتتغير كلها تلقائيًا من data/theme.json عند تحميل الصفحة */
   --bg-dark: #0b0c14;
   --bg-card: #171826;
   --accent-pink: #ff2d78;
@@ -20,7 +19,6 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--site-font); user-select: none; }
-
 html, body { max-width: 100%; overflow-x: hidden; }
 
 body {
@@ -36,50 +34,56 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(0,0,0,0.4);
+  background: rgba(11, 12, 20, 0.9);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.6rem;
-  flex-wrap: wrap;
 }
 
-.brand-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; font-weight: 900; color: #fff; }
+.brand-logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.15rem; font-weight: 900; color: #fff; }
 .brand-badge { background: var(--accent-pink); padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.85rem; }
-#themeLabel { font-size: 0.75rem; color: var(--text-sub, #9aa0b8); opacity: 0.8; }
+
+/* زر الانتقال لموقع mdm1.org */
+.btn-main-site {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: opacity 0.2s;
+}
+.btn-main-site:hover { opacity: 0.9; }
 
 .main-container { flex: 1; width: 100%; padding: 0.8rem 1rem 2rem; }
-
 .toolbar-section { display: flex; gap: 0.7rem; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap; }
 
 .search-input {
-  flex: 1;
-  min-width: 200px;
-  padding: 0.6rem 1rem;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--card-radius);
-  color: #fff;
-  font-size: 0.9rem;
-  outline: none;
+  flex: 1; min-width: 200px; padding: 0.6rem 1rem;
+  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--card-radius); color: #fff; font-size: 0.9rem; outline: none;
 }
 .search-input:focus { border-color: var(--accent-cyan); }
-
 #gamesCount { color: var(--accent-green); font-size: 0.85rem; font-weight: 700; white-space: nowrap; }
 
 .games-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
+  gap: 0.6rem;
   list-style: none;
 }
 @media (min-width: 500px) { .games-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 700px) { .games-grid { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 950px) { .games-grid { grid-template-columns: repeat(6, 1fr); } }
 @media (min-width: 1200px) { .games-grid { grid-template-columns: repeat(7, 1fr); } }
-@media (min-width: 1500px) { .games-grid { grid-template-columns: repeat(8, 1fr); } }
 
 .game-card {
   background: var(--bg-card);
@@ -87,26 +91,43 @@ body {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.12s ease;
+  border: 1px solid rgba(255,255,255,0.05);
 }
-.game-card:hover { transform: translateY(-3px); }
+.game-card:hover { transform: translateY(-3px); border-color: var(--accent-cyan); }
 
 .game-thumb { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #0a0920; }
 .game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .play-badge {
-  position: absolute; inset: 0; background: rgba(0,0,0,0.35);
+  position: absolute; inset: 0; background: rgba(0,0,0,0.4);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; transition: opacity 0.12s ease;
 }
 .game-card:hover .play-badge { opacity: 1; }
 .play-btn-circle {
-  width: 36px; height: 36px; border-radius: 50%; background: var(--accent-cyan);
-  color: #0b0c14; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  width: 38px; height: 38px; border-radius: 50%; background: var(--accent-cyan);
+  color: #0b0c14; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: bold;
 }
 
-.game-details { padding: 0.4rem 0.15rem 0; }
+.game-details { padding: 0.4rem 0.3rem; }
 .game-title { font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .game-cat-tag { font-size: 0.66rem; color: var(--accent-yellow); }
+
+/* نافذة مشغل الألعاب الداخلية */
+.game-modal {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
+  flex-direction: column;
+}
+.game-modal.active { display: flex; }
+.modal-header {
+  padding: 0.6rem 1rem; background: var(--bg-card); display: flex;
+  justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.modal-title { font-weight: bold; font-size: 1rem; color: var(--accent-cyan); }
+.close-btn { background: var(--accent-pink); color: #fff; border: none; padding: 0.3rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.modal-body { flex: 1; width: 100%; height: 100%; position: relative; }
+.modal-body iframe, .modal-body #ps1-emulator-container { width: 100%; height: 100%; border: none; }
 
 .portal-loader { text-align: center; padding: 3rem 1rem; color: #9aa0b8; }
 .spinner {
@@ -116,6 +137,7 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 </style>
+<script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 </head>
 <body>
 
@@ -124,12 +146,13 @@ body {
     <span class="brand-badge">MDM1</span>
     <span>بوابة الألعاب</span>
   </div>
-  <span id="themeLabel"></span>
+  <!-- زر توجيه الزوار إلى mdm1.org -->
+  <a href="https://mdm1.org" class="btn-main-site" target="_blank" rel="noopener">🌐 زيارة MDM1.org</a>
 </header>
 
 <main class="main-container">
   <div class="toolbar-section">
-    <input id="gamesSearch" class="search-input" type="search" placeholder="ابحث عن لعبة..." autocomplete="off">
+    <input id="gamesSearch" class="search-input" type="search" placeholder="ابحث عن لعبة أو لعبة بلايستيشن..." autocomplete="off">
     <span id="gamesCount">جاري التحميل...</span>
   </div>
 
@@ -141,39 +164,27 @@ body {
   <ul class="games-grid" id="gamesGrid"></ul>
 </main>
 
+<!-- نافذة عرض تشغيل اللعبة -->
+<div id="gameModal" class="game-modal">
+  <div class="modal-header">
+    <span id="modalGameTitle" class="modal-title">تشغيل اللعبة</span>
+    <button class="close-btn" id="closeModalBtn">إغلاق ✖</button>
+  </div>
+  <div class="modal-body" id="modalGameBody"></div>
+</div>
+
 <script>
 (function () {
   "use strict";
 
-  const root = document.documentElement.style;
-
-  /* تحميل الثيم من data/theme.json وتطبيقه فورًا */
-  async function loadTheme() {
-    try {
-      const res = await fetch("data/theme.json", { cache: "no-store" });
-      if (!res.ok) return;
-      const t = await res.json();
-      root.setProperty("--bg-dark", t.bgDark);
-      root.setProperty("--bg-card", t.bgCard);
-      root.setProperty("--accent-pink", t.pink);
-      root.setProperty("--accent-cyan", t.cyan);
-      root.setProperty("--accent-yellow", t.yellow);
-      root.setProperty("--accent-purple", t.purple);
-      root.setProperty("--accent-green", t.green);
-      root.setProperty("--card-radius", t.radius || "10px");
-      if (t.font) root.setProperty("--site-font", t.font);
-      const label = document.getElementById("themeLabel");
-      if (label && t.name) label.textContent = "🎨 " + t.name;
-    } catch (err) {
-      console.warn("تعذر تحميل data/theme.json — هيستخدم الشكل الافتراضي.", err);
-    }
-  }
-
-  /* تحميل الألعاب من data/games.json (نفس بنية الموقع الأول) */
   const gamesGrid = document.getElementById("gamesGrid");
   const gamesSearch = document.getElementById("gamesSearch");
   const gamesCount = document.getElementById("gamesCount");
   const portalLoader = document.getElementById("portalLoader");
+  const gameModal = document.getElementById("gameModal");
+  const modalGameTitle = document.getElementById("modalGameTitle");
+  const modalGameBody = document.getElementById("modalGameBody");
+  const closeModalBtn = document.getElementById("closeModalBtn");
 
   let ALL_GAMES = [];
 
@@ -185,14 +196,16 @@ body {
     gamesGrid.innerHTML = "";
     gamesCount.textContent = list.length.toLocaleString("ar-EG") + " لعبة متاحة";
     const fragment = document.createDocumentFragment();
+    
     list.forEach(game => {
       const li = document.createElement("li");
       li.className = "game-card";
       const title = escapeHTML(game.title || "لعبة");
-      const cat = escapeHTML(game.category || "");
+      const cat = escapeHTML(game.category || "عام");
       const thumb = game.thumb
         ? `<img src="${escapeHTML(game.thumb)}" alt="${title}" loading="lazy">`
         : `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:2rem;">🎮</div>`;
+      
       li.innerHTML = `
         <div class="game-thumb">
           ${thumb}
@@ -202,13 +215,49 @@ body {
           <div class="game-title">${title}</div>
           <div class="game-cat-tag">${cat}</div>
         </div>`;
-      li.addEventListener("click", () => {
-        if (game.url) window.open(game.url, "_blank", "noopener");
-      });
+      
+      li.addEventListener("click", () => openGame(game));
       fragment.appendChild(li);
     });
     gamesGrid.appendChild(fragment);
   }
+
+  function openGame(game) {
+    modalGameTitle.textContent = game.title;
+    modalGameBody.innerHTML = "";
+
+    if (game.type === "ps1") {
+      // تشغيل لعبة بلايستيشن عبر المحاكي
+      const emuDiv = document.createElement("div");
+      emuDiv.id = "emulatorContainer";
+      modalGameBody.appendChild(emuDiv);
+
+      window.EJS_player = '#emulatorContainer';
+      window.EJS_core = 'psx';
+      window.EJS_gameName = game.title;
+      window.EJS_color = '#00d4ff';
+      window.EJS_startOnLoaded = true;
+      window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+      window.EJS_gameUrl = game.url; // رابط ملف ISO / BIN المباشر للعبة
+
+      const script = document.createElement("script");
+      script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
+      modalGameBody.appendChild(script);
+    } else {
+      // تشغيل ألعاب WebGL / CrazyGames داخل iFrame
+      const iframe = document.createElement("iframe");
+      iframe.src = game.url;
+      iframe.allow = "autoplay; fulfilled; fullscreen; gaming";
+      modalGameBody.appendChild(iframe);
+    }
+
+    gameModal.classList.add("active");
+  }
+
+  closeModalBtn.addEventListener("click", () => {
+    gameModal.classList.remove("active");
+    modalGameBody.innerHTML = ""; // إيقاف الصوت واللعبة عند الإغلاق
+  });
 
   async function loadGames() {
     try {
@@ -235,7 +284,6 @@ body {
     }, 150);
   });
 
-  loadTheme();
   loadGames();
 })();
 </script>
