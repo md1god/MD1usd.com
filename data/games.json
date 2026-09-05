@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Resident Evil 2",
+    "category": "PlayStation 1",
+    "thumb": "رابط_صورة_الغلاف.jpg",
+    "url": "رابط_ملف_اللعبة_المباشر.bin",
+    "type": "ps1"
+  },
+  {
+    "title": "Crazy Cars",
+    "category": "CrazyGames",
+    "thumb": "رابط_صورة_الغلاف.jpg",
+    "url": "https://www.crazygames.com/embed/crazy-cars",
+    "type": "web"
+  }
+]
