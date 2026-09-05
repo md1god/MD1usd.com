@@ -7,6 +7,7 @@
 
 <style>
 :root {
+  /* قيم افتراضية ويتم تحديثها تلقائياً من data/theme.json */
   --bg-dark: #0b0c14;
   --bg-card: #171826;
   --accent-pink: #ff2d78;
@@ -46,8 +47,9 @@ body {
 
 .brand-logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.15rem; font-weight: 900; color: #fff; }
 .brand-badge { background: var(--accent-pink); padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.85rem; }
+#themeLabel { font-size: 0.75rem; color: #9aa0b8; opacity: 0.8; }
 
-/* زر الانتقال لموقع mdm1.org */
+/* زر التوجيه لموقع mdm1.org */
 .btn-main-site {
   background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
   color: #fff;
@@ -113,7 +115,7 @@ body {
 .game-title { font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .game-cat-tag { font-size: 0.66rem; color: var(--accent-yellow); }
 
-/* نافذة مشغل الألعاب الداخلية */
+/* شاشة تشغيل اللعبة الداخلية */
 .game-modal {
   display: none; position: fixed; inset: 0; z-index: 1000;
   background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
@@ -127,7 +129,7 @@ body {
 .modal-title { font-weight: bold; font-size: 1rem; color: var(--accent-cyan); }
 .close-btn { background: var(--accent-pink); color: #fff; border: none; padding: 0.3rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
 .modal-body { flex: 1; width: 100%; height: 100%; position: relative; }
-.modal-body iframe, .modal-body #ps1-emulator-container { width: 100%; height: 100%; border: none; }
+.modal-body iframe, .modal-body #emulatorContainer { width: 100%; height: 100%; border: none; }
 
 .portal-loader { text-align: center; padding: 3rem 1rem; color: #9aa0b8; }
 .spinner {
@@ -137,7 +139,6 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 </style>
-<script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 </head>
 <body>
 
@@ -146,7 +147,7 @@ body {
     <span class="brand-badge">MDM1</span>
     <span>بوابة الألعاب</span>
   </div>
-  <!-- زر توجيه الزوار إلى mdm1.org -->
+  <span id="themeLabel"></span>
   <a href="https://mdm1.org" class="btn-main-site" target="_blank" rel="noopener">🌐 زيارة MDM1.org</a>
 </header>
 
@@ -164,7 +165,6 @@ body {
   <ul class="games-grid" id="gamesGrid"></ul>
 </main>
 
-<!-- نافذة عرض تشغيل اللعبة -->
 <div id="gameModal" class="game-modal">
   <div class="modal-header">
     <span id="modalGameTitle" class="modal-title">تشغيل اللعبة</span>
@@ -177,6 +177,31 @@ body {
 (function () {
   "use strict";
 
+  const root = document.documentElement.style;
+
+  /* 1. قراءة الثيم الدائم وتطبيقه من data/theme.json الذي ينشئه سكريبت rotate-theme.js */
+  async function loadTheme() {
+    try {
+      const res = await fetch("data/theme.json", { cache: "no-store" });
+      if (!res.ok) return;
+      const t = await res.json();
+      root.setProperty("--bg-dark", t.bgDark);
+      root.setProperty("--bg-card", t.bgCard);
+      root.setProperty("--accent-pink", t.pink);
+      root.setProperty("--accent-cyan", t.cyan);
+      root.setProperty("--accent-yellow", t.yellow);
+      root.setProperty("--accent-purple", t.purple);
+      root.setProperty("--accent-green", t.green);
+      root.setProperty("--card-radius", t.radius || "10px");
+      if (t.font) root.setProperty("--site-font", t.font);
+      const label = document.getElementById("themeLabel");
+      if (label && t.name) label.textContent = "🎨 " + t.name;
+    } catch (err) {
+      console.warn("تعذر تحميل data/theme.json — جاري استخدام الشكل الافتراضي.", err);
+    }
+  }
+
+  /* 2. تحميل وتشغيل الألعاب */
   const gamesGrid = document.getElementById("gamesGrid");
   const gamesSearch = document.getElementById("gamesSearch");
   const gamesCount = document.getElementById("gamesCount");
@@ -227,7 +252,6 @@ body {
     modalGameBody.innerHTML = "";
 
     if (game.type === "ps1") {
-      // تشغيل لعبة بلايستيشن عبر المحاكي
       const emuDiv = document.createElement("div");
       emuDiv.id = "emulatorContainer";
       modalGameBody.appendChild(emuDiv);
@@ -238,13 +262,12 @@ body {
       window.EJS_color = '#00d4ff';
       window.EJS_startOnLoaded = true;
       window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-      window.EJS_gameUrl = game.url; // رابط ملف ISO / BIN المباشر للعبة
+      window.EJS_gameUrl = game.url;
 
       const script = document.createElement("script");
       script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
       modalGameBody.appendChild(script);
     } else {
-      // تشغيل ألعاب WebGL / CrazyGames داخل iFrame
       const iframe = document.createElement("iframe");
       iframe.src = game.url;
       iframe.allow = "autoplay; fulfilled; fullscreen; gaming";
@@ -256,7 +279,7 @@ body {
 
   closeModalBtn.addEventListener("click", () => {
     gameModal.classList.remove("active");
-    modalGameBody.innerHTML = ""; // إيقاف الصوت واللعبة عند الإغلاق
+    modalGameBody.innerHTML = "";
   });
 
   async function loadGames() {
@@ -284,6 +307,7 @@ body {
     }, 150);
   });
 
+  loadTheme();
   loadGames();
 })();
 </script>
