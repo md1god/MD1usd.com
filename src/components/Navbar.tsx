@@ -70,6 +70,7 @@ const Navbar: React.FC = () => {
       ],
     },
     { label: 'من نحن', path: '/about' },
+    { label: 'Hub الخدمات', path: '/hub-services' },
     { label: 'لوحة التحكم', path: '/dashboard' },
   ];
 

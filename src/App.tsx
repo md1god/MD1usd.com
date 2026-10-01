@@ -45,6 +45,7 @@ const APIDocumentation = lazy(() => import('./pages/APIDocumentation'));
 const DeveloperResources = lazy(() => import('./pages/DeveloperResources'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const About = lazy(() => import('./pages/About'));
+const HubServices = lazy(() => import('./pages/HubServices'));
 
 import './styles/globals.css';
 
@@ -132,6 +133,7 @@ const AppShell: React.FC = () => {
 
               {/* Dashboard */}
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/hub-services" element={<HubServices />} />
               <Route path="/about" element={<About />} />
             </Routes>
           </Suspense>
