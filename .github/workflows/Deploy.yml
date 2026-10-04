@@ -21,8 +21,25 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Copy 404.html for SPA fallback
-        run: cp dist/index.html dist/404.html
+      - name: Generate SPA route entry points
+        run: |
+          cp dist/index.html dist/404.html
+          # GitHub Pages otherwise returns HTTP 404 for BrowserRouter deep links.
+          # Publishing an index.html per route keeps direct links crawlable and returns HTTP 200.
+          routes=(
+            about tokenomics security whitepaper roadmap
+            learn/defi-101 learn/islamic-finance learn/blockchain-basics learn/smart-contracts
+            learn/wallet-guide learn/security-best-practices learn/glossary
+            networks/ethereum networks/polygon networks/bnb networks/solana networks/comparison
+            community community/ambassadors community/events community/governance community/voting community/believers
+            blog news announcements case-studies media-kit
+            support/faq support support/troubleshooting contact careers bug-bounty
+            partnerships integrations developers/api developers/resources dashboard hub-services
+          )
+          for route in "${routes[@]}"; do
+            mkdir -p "dist/$route"
+            cp dist/index.html "dist/$route/index.html"
+          done
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
