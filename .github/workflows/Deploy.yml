@@ -40,6 +40,7 @@ jobs:
             mkdir -p "dist/$route"
             cp dist/index.html "dist/$route/index.html"
           done
+          node scripts/generate-seo-routes.mjs
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
