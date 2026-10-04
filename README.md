@@ -52,3 +52,15 @@ push إلى فرع `main`. راجع `DEPLOYMENT.md` للتفاصيل الكام�
 - الموقع: https://md1usd.com
 - المنصة الأم: https://mdm1.org
 - التواصل: info@md1usd.com / info@mdm1.org
+
+## روابط رسمية واكتشاف المشروع
+
+- الموقع الرسمي: https://md1usd.com/
+- المنصة الأم: https://mdm1.org/
+- الورقة البيضاء: https://md1usd.com/whitepaper/
+- خارطة الطريق: https://md1usd.com/roadmap/
+- خريطة الموقع: https://md1usd.com/sitemap.xml
+- موجز التحديثات: https://md1usd.com/feed.xml
+
+### كلمات مفتاحية
+MD1USD، عملة مستقرة، stablecoin، blockchain، DeFi، Ethereum، Polygon، BNB Chain، Solana، Arabic crypto، open source.

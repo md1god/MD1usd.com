@@ -1,0 +1,13 @@
+# MD1USD.com
+
+> الموقع الرسمي لمشروع MD1USD، عملة مستقرة مفتوحة المصدر مع معلومات تعليمية عن الأمان والشبكات والحوكمة.
+
+- الموقع الرئيسي: https://md1usd.com/
+- عن المشروع: https://md1usd.com/about/
+- الورقة البيضاء: https://md1usd.com/whitepaper/
+- اقتصاد العملة: https://md1usd.com/tokenomics/
+- الأمان: https://md1usd.com/security/
+- خارطة الطريق: https://md1usd.com/roadmap/
+- الأسئلة الشائعة: https://md1usd.com/support/faq/
+- المطورون: https://md1usd.com/developers/api/
+- المنصة الأم: https://mdm1.org/
