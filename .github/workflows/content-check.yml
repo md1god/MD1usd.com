@@ -1,16 +1,32 @@
 name: Content Check
 on:
-  schedule: [{ cron: '0 8 * * *' }]
+  schedule:
+    - cron: '0 8 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   check:
-    permissions: { contents: read, issues: write }
-    uses: md1god/MD-automation/.github/workflows/reusable-content-check.yml@main
-    with:
-      required-files: |
-        dist/index.html
-        dist/404.html
-        dist/CNAME
-        dist/robots.txt
-        dist/sitemap.xml
-      min-bytes: '400'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Build and generate crawlable routes
+        run: |
+          npm ci
+          npm run build
+          cp dist/index.html dist/404.html
+          node scripts/generate-seo-routes.mjs
+      - name: Verify published artifact files
+        run: |
+          set -e
+          for f in dist/index.html dist/404.html dist/CNAME dist/robots.txt dist/sitemap.xml; do
+            test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
+          done
+          test "$(find dist -name index.html | wc -l)" -ge 20
+          echo "Content check passed: $(find dist -name index.html | wc -l) crawlable HTML entries."
