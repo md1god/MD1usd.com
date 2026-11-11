@@ -8,14 +8,14 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
@@ -41,19 +41,48 @@ jobs:
             cp dist/index.html "dist/$route/index.html"
           done
           node scripts/generate-seo-routes.mjs
+      - name: Verify optimized Crystal Core assets
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          const path = require('path');
+          const root = 'dist/crystal-core';
+          const files = fs.readdirSync(path.join(root, 'assets/media'));
+          const webp = files.filter(f => f.endsWith('.webp'));
+          if (webp.length < 13) throw new Error(`Expected optimized Crystal Core images, found ${webp.length}`);
+          const code = [...fs.readdirSync(path.join(root, 'assets')).filter(f => f.endsWith('.js')), 'index.html']
+            .map(f => fs.readFileSync(path.join(root, f === 'index.html' ? f : 'assets/' + f), 'utf8')).join('\n');
+          const legacy = code.match(/[^\s\"'`]+\.(?:jpg|jpeg|png)(?:[^\s\"'`]*)/g) || [];
+          const localLegacy = legacy.filter(url => !/^https?:\/\//.test(url));
+          if (localLegacy.length) throw new Error(`Crystal Core still references legacy assets: ${localLegacy.slice(0, 5).join(', ')}`);
+          console.log(`Verified ${webp.length} optimized Crystal Core images and no legacy references`);
+          JS
+          rm -f dist/crystal-core/assets/media/ccgame-arena-aurora-v1.jpg \
+            dist/crystal-core/assets/media/ccgame-arena-ember-v1.jpg \
+            dist/crystal-core/assets/media/ccgame-arena-obsidian-v2.jpg \
+            dist/crystal-core/assets/media/ccgame-arena-sunforge-v2.jpg \
+            dist/crystal-core/assets/media/ccgame-fighter-inaya-v1.jpg \
+            dist/crystal-core/assets/media/ccgame-fighter-mateo-v1.jpg \
+            dist/crystal-core/assets/media/ccgame-lucas-v2.png \
+            dist/crystal-core/assets/media/ccgame-yumi-v2.png \
+            dist/crystal-core/assets/media/celestial-china-arena.jpg \
+            dist/crystal-core/assets/media/celestial-core-king-portrait.jpg \
+            dist/crystal-core/assets/media/celestial-core-mark.png \
+            dist/crystal-core/assets/media/celestial-egypt-arena.jpg \
+            dist/crystal-core/assets/media/celestial-rome-arena.jpg
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: './dist'
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
