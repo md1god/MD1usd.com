@@ -66,7 +66,7 @@ const Home: React.FC = () => {
       <section className="relative overflow-hidden bg-gradient-premium py-20 md:py-32">
         <div
           className="absolute inset-0 opacity-30 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/hero_background.jpg')" }}
+          style={{ backgroundImage: "url('/images/hero_background.webp')" }}
         ></div>
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 right-10 w-72 h-72 bg-gold-500 rounded-full blur-3xl"></div>

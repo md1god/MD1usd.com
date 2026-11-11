@@ -12,7 +12,7 @@ const services = [
 const HubServices: React.FC = () => (
   <div className="min-h-screen bg-black-950">
     <section className="relative overflow-hidden bg-gradient-premium py-20 md:py-28">
-      <div className="absolute inset-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: "url('/images/hero_background.jpg')" }} />
+      <div className="absolute inset-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: "url('/images/hero_background.webp')" }} />
       <div className="container-custom relative z-10 text-center">
         <span className="inline-block px-4 py-2 bg-gold-500/20 text-gold-400 rounded-full text-sm font-semibold mb-5">MDM1 HUB • OPEN DIGITAL SERVICES</span>
         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">أدوات مفتوحة، خدمات حقيقية</h1>
