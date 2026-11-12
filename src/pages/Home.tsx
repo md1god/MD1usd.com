@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MediaImage from '../components/media/MediaImage';
+import SpatialNetwork from '../components/SpatialNetwork';
 
 const Home: React.FC = () => {
   const features = [
@@ -62,6 +63,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black-950">
+      <SpatialNetwork />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-premium py-20 md:py-32">
         <div
