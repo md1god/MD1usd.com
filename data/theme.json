@@ -1,15 +1,15 @@
 {
-  "name": "غروب صحراوي",
-  "bgDark": "#160f0a",
-  "bgCard": "#241a12",
-  "pink": "#ff6b35",
-  "cyan": "#ffb238",
-  "yellow": "#ffe15d",
-  "purple": "#c1440e",
-  "green": "#f7c548",
-  "radius": "18px",
-  "font": "'Cairo', system-ui, sans-serif",
-  "periodIndex": 17,
+  "name": "نار وجليد",
+  "bgDark": "#0a0f1e",
+  "bgCard": "#141c33",
+  "pink": "#ff3860",
+  "cyan": "#3ec6ff",
+  "yellow": "#ffb703",
+  "purple": "#5c6bc0",
+  "green": "#00e5a0",
+  "radius": "12px",
+  "font": "'Tajawal', system-ui, sans-serif",
+  "periodIndex": 22,
   "periodDays": 14,
-  "updatedAt": "2026-09-05T09:08:43.962Z"
+  "updatedAt": "2026-11-12T10:18:28.220Z"
 }
