@@ -7,7 +7,7 @@ permissions:
   actions: read
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Check latest Deploy workflow
         uses: actions/github-script@v7

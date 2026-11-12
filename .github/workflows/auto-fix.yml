@@ -8,7 +8,7 @@ jobs:
   # job بصلاحية contents: write مجرد إنه ضاف لابل build-failed.
   gate:
     if: contains(github.event.issue.labels.*.name, 'build-failed')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions: { contents: read }
     outputs:
       allowed: ${{ steps.check.outputs.allowed }}

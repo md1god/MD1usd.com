@@ -6,8 +6,8 @@
 // تقدر تغيّر عدد أيام الدورة من PERIOD_DAYS تحت.
 // -----------------------------------------------------------------
 
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 const PERIOD_DAYS = 14; // غيّرها لـ 7 لو عايز كل أسبوع بدل كل أسبوعين
 const EPOCH = new Date("2026-01-01T00:00:00Z").getTime(); // نقطة بداية ثابتة للعد منها
