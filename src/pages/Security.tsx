@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/media/PageHero';
 import MediaImage from '../components/media/MediaImage';
+import { CONTRACTS, explorerUrl } from '../data/contracts';
 
 const Security: React.FC = () => {
   const pillars = [
@@ -14,11 +15,11 @@ const Security: React.FC = () => {
   ];
 
   const contracts = [
-    { network: 'Ethereum', address: '0x6bd6A380903Ae072A764A929C34779824c068BB1', explorer: 'https://etherscan.io/address/0x6bd6A380903Ae072A764A929C34779824c068BB1', dex: 'https://app.uniswap.org/explore/tokens/ethereum/0x6bd6a380903ae072a764a929c34779824c068bb1' },
-    { network: 'Polygon', address: '0x6bd6A380903Ae072A764A929C34779824c068BB1', explorer: 'https://polygonscan.com/address/0x6bd6A380903Ae072A764A929C34779824c068BB1', dex: 'https://quickswap.exchange/#/swap?outputCurrency=0x6bd6A380903Ae072A764A929C34779824c068BB1' },
-    { network: 'BNB Chain', address: '0xDe6b3FEe06A5570e51f171c3afFCfD7f7c6d4787', explorer: 'https://bscscan.com/address/0xDe6b3FEe06A5570e51f171c3afFCfD7f7c6d4787', dex: 'https://pancakeswap.finance/swap?outputCurrency=0xDe6b3FEe06A5570e51f171c3afFCfD7f7c6d4787' },
-    { network: 'Solana', address: '3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8', explorer: 'https://explorer.solana.com/address/3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8', dex: 'https://birdeye.so/token/3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8?chain=solana' },
-    { network: 'MDM1 Governance (Polygon)', address: '0x0a4E17e4F9c179a310069711069c346CFCf12c3f', explorer: 'https://polygonscan.com/address/0x0a4E17e4F9c179a310069711069c346CFCf12c3f', dex: '' },
+    { network: 'Ethereum', address: CONTRACTS.ethereum.address, explorer: explorerUrl(CONTRACTS.ethereum), dex: `https://app.uniswap.org/explore/tokens/ethereum/${CONTRACTS.ethereum.address.toLowerCase()}` },
+    { network: 'Polygon', address: CONTRACTS.polygon.address, explorer: explorerUrl(CONTRACTS.polygon), dex: `https://quickswap.exchange/#/swap?outputCurrency=${CONTRACTS.polygon.address}` },
+    { network: 'BNB Chain', address: CONTRACTS.bnb.address, explorer: explorerUrl(CONTRACTS.bnb), dex: `https://pancakeswap.finance/swap?outputCurrency=${CONTRACTS.bnb.address}` },
+    { network: 'Solana', address: CONTRACTS.solana.address, explorer: explorerUrl(CONTRACTS.solana), dex: `https://birdeye.so/token/${CONTRACTS.solana.address}?chain=solana` },
+    { network: CONTRACTS.mdm1Governance.name, address: CONTRACTS.mdm1Governance.address, explorer: explorerUrl(CONTRACTS.mdm1Governance), dex: '' },
   ];
 
   const tips = [

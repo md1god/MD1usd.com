@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHero from '../components/media/PageHero';
 import MediaImage from '../components/media/MediaImage';
+import { CONTRACTS } from '../data/contracts';
 
 const SolanaNetwork: React.FC = () => {
   return (
@@ -28,7 +29,7 @@ const SolanaNetwork: React.FC = () => {
         <div className="container-custom">
           <div className="p-8 bg-black-800 rounded-xl border border-gold-500/20 max-w-2xl mx-auto text-center">
             <h3 className="text-xl font-bold text-white mb-3">معرّف البرنامج (Program ID)</h3>
-            <code className="text-gold-500 text-sm break-all">3fN2LAt47q3oSgNq4dJZt4DuAh5yJw6mb6B3dRYJGHa8</code>
+            <code className="text-gold-500 text-sm break-all">{CONTRACTS.solana.address}</code>
             <p className="text-gray-500 text-xs mt-4">منشور على Mainnet-Beta — قيد التحضير للتفعيل الكامل</p>
           </div>
         </div>
