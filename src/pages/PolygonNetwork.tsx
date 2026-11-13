@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHero from '../components/media/PageHero';
 import MediaImage from '../components/media/MediaImage';
+import { CONTRACTS } from '../data/contracts';
 
 const PolygonNetwork: React.FC = () => {
   return (
@@ -29,11 +30,11 @@ const PolygonNetwork: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             <div className="p-6 bg-black-800 rounded-xl border border-gold-500/20 text-center">
               <h3 className="text-lg font-bold text-white mb-2">عقد MD1USD</h3>
-              <code className="text-gold-500 text-xs break-all">0x6bd6A380903Ae072A764A929C34779824c068BB1</code>
+              <code className="text-gold-500 text-xs break-all">{CONTRACTS.polygon.address}</code>
             </div>
             <div className="p-6 bg-black-800 rounded-xl border border-gold-500/20 text-center">
               <h3 className="text-lg font-bold text-white mb-2">توكن حوكمة MDM1</h3>
-              <code className="text-gold-500 text-xs break-all">0x0a4E17e4F9c179a310069711069c346CFCf12c3f</code>
+              <code className="text-gold-500 text-xs break-all">{CONTRACTS.mdm1Governance.address}</code>
             </div>
           </div>
         </div>
