@@ -66,6 +66,7 @@ const GlobalAudioPlayer: React.FC = () => {
 
       <button
         data-orb
+        data-drag="music"
         onClick={toggleMute}
         className={`fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full font-bold flex items-center justify-center ${
           isPlaying ? 'playing text-gold-500' : 'text-gray-400'
