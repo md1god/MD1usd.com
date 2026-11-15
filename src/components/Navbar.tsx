@@ -139,7 +139,9 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden text-2xl hover:text-gold-500 transition-colors"
+          data-orb
+          aria-label="القائمة"
+          className="lg:hidden text-2xl w-11 h-11 rounded-full flex items-center justify-center text-gold-500"
           onClick={() => setIsOpen(!isOpen)}
         >
           ☰

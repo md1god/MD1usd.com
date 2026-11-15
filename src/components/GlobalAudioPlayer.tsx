@@ -65,9 +65,10 @@ const GlobalAudioPlayer: React.FC = () => {
       )}
 
       <button
+        data-orb
         onClick={toggleMute}
-        className={`fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full font-bold shadow-lg transition-all duration-300 transform hover:scale-110 flex items-center justify-center ${
-          isPlaying ? 'bg-gradient-gold text-black-900' : 'bg-black-800 text-gray-400 border border-gray-600'
+        className={`fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full font-bold flex items-center justify-center ${
+          isPlaying ? 'playing text-gold-500' : 'text-gray-400'
         }`}
         title={isPlaying ? 'كتم الموسيقى' : 'تشغيل الموسيقى'}
       >

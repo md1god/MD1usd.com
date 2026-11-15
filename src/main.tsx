@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/globals.css'
 import './styles/spatial-network.css'
+import { initOrbs } from './utils/orbs'
+
+initOrbs()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
