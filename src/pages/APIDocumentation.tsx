@@ -1,5 +1,6 @@
 import React from 'react';
 import PageHero from '../components/media/PageHero';
+import { CONTRACTS } from '../data/contracts';
 
 const APIDocumentation: React.FC = () => {
   return (
@@ -15,10 +16,10 @@ const APIDocumentation: React.FC = () => {
             </p>
             <div className="space-y-2">
               <code className="block text-gold-500 text-xs bg-black-950 p-3 rounded-lg border border-gold-500/10 break-all">
-                Ethereum/Polygon: 0x6bd6A380903Ae072A764A929C34779824c068BB1
+                Ethereum/Polygon: {CONTRACTS.ethereum.address}
               </code>
               <code className="block text-gold-500 text-xs bg-black-950 p-3 rounded-lg border border-gold-500/10 break-all">
-                BNB Chain: 0xDe6b3FEe06A5570e51f171c3afFCfD7f7c6d4787
+                BNB Chain: {CONTRACTS.bnb.address}
               </code>
             </div>
           </div>

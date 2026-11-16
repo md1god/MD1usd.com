@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHero from '../components/media/PageHero';
 import MediaImage from '../components/media/MediaImage';
+import { CONTRACTS } from '../data/contracts';
 
 const BNBNetwork: React.FC = () => {
   return (
@@ -28,7 +29,7 @@ const BNBNetwork: React.FC = () => {
         <div className="container-custom">
           <div className="p-8 bg-black-800 rounded-xl border border-gold-500/20 max-w-2xl mx-auto text-center">
             <h3 className="text-xl font-bold text-white mb-3">عنوان العقد على BNB Chain</h3>
-            <code className="text-gold-500 text-sm break-all">0xDe6b3FEe06A5570e51f171c3afFCfD7f7c6d4787</code>
+            <code className="text-gold-500 text-sm break-all">{CONTRACTS.bnb.address}</code>
           </div>
         </div>
       </section>
