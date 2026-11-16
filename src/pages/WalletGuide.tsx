@@ -1,6 +1,5 @@
 import React from 'react';
 import PageHero from '../components/media/PageHero';
-import MediaImage from '../components/media/MediaImage';
 
 const WalletGuide: React.FC = () => {
   const steps = [

@@ -167,3 +167,19 @@ body.ar {
 .glass {
   @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-xl;
 }
+
+/* ---------- interactive 3D orb buttons ([data-orb], driven by utils/orbs.ts) ---------- */
+.orb {
+  --o-x: 0px; --o-y: 0px; --o-rx: 0deg; --o-ry: 0deg; --o-s: 1; --o-hx: 38%; --o-hy: 28%;
+  transform: translate3d(var(--o-x), var(--o-y), 0) perspective(260px) rotateX(var(--o-rx)) rotateY(var(--o-ry)) scale(var(--o-s));
+  background:
+    radial-gradient(circle at var(--o-hx) var(--o-hy), rgba(255, 238, 178, .42), rgba(255, 238, 178, 0) 46%),
+    radial-gradient(circle at 50% 62%, rgba(58, 40, 9, .96), rgba(8, 5, 0, .94) 78%);
+  border: 1px solid rgba(228, 205, 140, .8);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, .62), 0 2px 0 rgba(255, 228, 150, .38) inset, 0 -7px 11px rgba(0, 0, 0, .55) inset, 0 0 20px rgba(201, 166, 72, .26);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, .75);
+  will-change: transform;
+  transition: box-shadow .25s, border-color .25s;
+}
+.orb:hover, .orb:focus-visible { border-color: #e4cd8c; box-shadow: 0 16px 28px rgba(0, 0, 0, .66), 0 2px 0 rgba(255, 232, 160, .5) inset, 0 -7px 11px rgba(0, 0, 0, .5) inset, 0 0 32px rgba(228, 205, 140, .5); }
+.orb.playing { box-shadow: 0 12px 22px rgba(0, 0, 0, .62), 0 2px 0 rgba(255, 228, 150, .4) inset, 0 -7px 11px rgba(0, 0, 0, .5) inset, 0 0 34px rgba(228, 205, 140, .62); }
