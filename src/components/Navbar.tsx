@@ -150,7 +150,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-black-800 p-4 border-t border-gold-500/30">
+        <div className="lg:hidden bg-black-800 p-4 border-t border-gold-500/30 overflow-y-auto overscroll-contain" style={{ maxHeight: 'calc(100dvh - 5.5rem)' }}>
           <div className="flex gap-2 mb-4 flex-wrap">
             {externalLinks.map((link, i) => (
               <a
