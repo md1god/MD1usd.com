@@ -12,6 +12,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;   /* لا تمرير أفقي على أي صفحة */
 }
 
 body {
@@ -20,6 +21,7 @@ body {
   background-color: #f9fafb;
   direction: rtl;
   text-align: right;
+  overflow-x: clip;
 }
 
 body.ar {
