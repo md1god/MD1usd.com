@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const CONSENT_KEY = 'md1usd_audio_consent'; // 'yes' | 'no'
+const POS_KEY = 'md1usd_audio_pos';         // موضع الأغنية (ثواني) ليكمل بعد الريفريش
 
 const GlobalAudioPlayer: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -9,26 +10,73 @@ const GlobalAudioPlayer: React.FC = () => {
 
   const track = { name: 'موسيقى الخلفية', src: '/audio/bg_music.mp3' };
 
+  const wantsMusic = () => {
+    try { return sessionStorage.getItem(CONSENT_KEY) === 'yes'; } catch { return false; }
+  };
+
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // الحالة الظاهرة على الزر تُشتق من حالة العنصر الفعلية (لا من متغيّر منفصل قد يتأخر)
+    const sync = () => setIsPlaying(!audio.paused && !audio.muted);
+    ['play', 'playing', 'pause', 'ended', 'volumechange'].forEach(ev => audio.addEventListener(ev, sync));
+
+    // استعادة موضع الأغنية بعد الريفريش
+    let startAt = 0;
+    try { startAt = parseFloat(sessionStorage.getItem(POS_KEY) || '0') || 0; } catch {}
+    let restored = startAt <= 1;
+    const restore = () => {
+      if (restored) return;
+      restored = true;
+      const d = audio.duration;
+      if (isFinite(d) && d > 0 && startAt < d - 3) { try { audio.currentTime = startAt; } catch {} }
+    };
+    audio.addEventListener('loadedmetadata', restore);
+    if (audio.readyState >= 1) restore();
+
+    const save = () => {
+      if (audio.currentTime > 0.5) { try { sessionStorage.setItem(POS_KEY, String(audio.currentTime)); } catch {} }
+    };
+    let last = 0;
+    const onTime = () => { const n = Date.now(); if (n - last > 1000) { last = n; save(); } };
+    audio.addEventListener('timeupdate', onTime);
+    window.addEventListener('pagehide', save);
+
+    // المتصفح يمنع التشغيل بدون لمسة بعد الريفريش: نحاول فوراً، وإن فشل نكمل عند أول لمسة
+    const resume = () => {
+      if (!wantsMusic() || (!audio.paused && !audio.muted)) return;
+      audio.muted = false;
+      audio.play().catch(() => {});
+    };
     try {
       const consent = sessionStorage.getItem(CONSENT_KEY);
-      if (consent === null) {
-        // أول زيارة في هذه الجلسة: اسأل المستخدم مرة واحدة، تماماً كما في mdm1.org
-        setShowPrompt(true);
-      } else if (consent === 'yes') {
-        // كان قد وافق سابقاً في هذه الجلسة؛ الاستمرار في التشغيل هنا مبني على
-        // موافقة صريحة سابقة، وليس تشغيلاً تلقائياً بلا إذن.
-        audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
-    } catch {
-      // sessionStorage غير متاح؛ لا نعرض شيئاً ولا نشغل صوتاً تلقائياً
-    }
+      if (consent === null) setShowPrompt(true);
+      else if (consent === 'yes') resume();
+    } catch {}
+
+    const onGesture = (e: Event) => {
+      const t = e.target as Element | null;
+      if (t && t.closest && t.closest('[data-drag="music"]')) return; // الضغط على زر الصوت نفسه له معالجه
+      resume();
+    };
+    const evs = ['pointerdown', 'keydown', 'touchend'];
+    evs.forEach(ev => document.addEventListener(ev, onGesture, { passive: true }));
+
+    return () => {
+      ['play', 'playing', 'pause', 'ended', 'volumechange'].forEach(ev => audio.removeEventListener(ev, sync));
+      audio.removeEventListener('loadedmetadata', restore);
+      audio.removeEventListener('timeupdate', onTime);
+      window.removeEventListener('pagehide', save);
+      evs.forEach(ev => document.removeEventListener(ev, onGesture));
+    };
   }, []);
 
   const accept = () => {
     setShowPrompt(false);
     try { sessionStorage.setItem(CONSENT_KEY, 'yes'); } catch {}
-    audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    const audio = audioRef.current;
+    if (audio) { audio.muted = false; audio.play().catch(() => {}); }
   };
 
   const decline = () => {
@@ -39,11 +87,13 @@ const GlobalAudioPlayer: React.FC = () => {
   const toggleMute = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (isPlaying) {
+    if (!audio.paused && !audio.muted) {
+      try { sessionStorage.setItem(CONSENT_KEY, 'no'); } catch {}
       audio.pause();
-      setIsPlaying(false);
     } else {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      try { sessionStorage.setItem(CONSENT_KEY, 'yes'); } catch {}
+      audio.muted = false;
+      audio.play().catch(() => {});
     }
   };
 
