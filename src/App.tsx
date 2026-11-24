@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import GlobalAudioPlayer from './components/GlobalAudioPlayer';
+import AdSenseLoader from './components/AdSenseLoader';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -46,6 +47,10 @@ const DeveloperResources = lazy(() => import('./pages/DeveloperResources'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const About = lazy(() => import('./pages/About'));
 const HubServices = lazy(() => import('./pages/HubServices'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Guides = lazy(() => import('./pages/Guides'));
+const GuideArticle = lazy(() => import('./pages/GuideArticle'));
 
 import './styles/globals.css';
 
@@ -73,6 +78,7 @@ const AppShell: React.FC = () => {
   return (
     <>
       <ScrollToTop />
+      <AdSenseLoader />
       <GlobalAudioPlayer />
       <div className="flex flex-col min-h-screen">
         <Navbar />
@@ -135,6 +141,14 @@ const AppShell: React.FC = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/hub-services" element={<HubServices />} />
               <Route path="/about" element={<About />} />
+
+              {/* Guides */}
+              <Route path="/guides" element={<Guides />} />
+              <Route path="/guides/:slug" element={<GuideArticle />} />
+
+              {/* Legal */}
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
             </Routes>
           </Suspense>
         </main>

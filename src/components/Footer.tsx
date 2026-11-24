@@ -14,6 +14,7 @@ const Footer: React.FC = () => {
       { label: 'أساسيات البلوكتشين', path: '/learn/blockchain-basics' },
       { label: 'دليل المحافظ', path: '/learn/wallet-guide' },
       { label: 'القاموس', path: '/learn/glossary' },
+      { label: 'الأدلة والمقالات', path: '/guides' },
     ],
     community: [
       { label: 'المجتمع', path: '/community' },
@@ -59,7 +60,7 @@ const Footer: React.FC = () => {
               </div>
             </Link>
             <p className="text-gray-400 text-sm">
-              عملة مستقرة مضمونة 100% باحتياطي حقيقي، بعقود مفتوحة المصدر وشفافة بالكامل
+              عملة مستقرة مرتبطة بالدولار 1:1 وفق تصميم معلن، بعقود مفتوحة المصدر يمكن التحقق منها على البلوكتشين
             </p>
           </div>
 
@@ -184,16 +185,16 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex gap-6">
               <Link 
-                to="/security" 
+                to="/privacy" 
                 className="text-gray-400 hover:text-gold-500 transition-colors text-sm"
               >
                 سياسة الخصوصية
               </Link>
               <Link 
-                to="/support" 
+                to="/terms" 
                 className="text-gray-400 hover:text-gold-500 transition-colors text-sm"
               >
-                شروط الاستخدام
+                الشروط والأحكام
               </Link>
               <Link 
                 to="/contact" 
@@ -209,6 +210,10 @@ const Footer: React.FC = () => {
       {/* Bottom Bar */}
       <div className="bg-black-900 border-t border-gold-500/30 py-4">
         <div className="container-custom text-center text-gray-500 text-sm">
+          <p className="mb-2">
+            تنبيه: المحتوى تعليمي ولا يمثل استشارة مالية أو استثمارية. الأصول الرقمية عالية المخاطر وقد تخسر فيها كامل المبلغ،
+            ولا نعد بأي أرباح. راجع <Link to="/terms" className="underline">الشروط والأحكام</Link>.
+          </p>
           <p>
             تم بناء MD1USD بواسطة مجتمع من المطورين والمتحمسين لتكنولوجيا البلوكتشين
           </p>
