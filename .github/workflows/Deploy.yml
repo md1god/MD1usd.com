@@ -35,6 +35,8 @@ jobs:
             blog news announcements case-studies media-kit
             support/faq support support/troubleshooting contact careers bug-bounty
             partnerships integrations developers/api developers/resources dashboard hub-services
+            privacy terms guides
+            guides/stablecoins-explained guides/verify-md1usd-contracts guides/stablecoin-risks guides/choosing-a-network
           )
           for route in "${routes[@]}"; do
             mkdir -p "dist/$route"

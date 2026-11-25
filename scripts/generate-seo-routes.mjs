@@ -25,8 +25,24 @@ const routes = {
   '/news': ['أخبار MD1USD | آخر التحديثات والإعلانات', 'تابع آخر أخبار مشروع MD1USD وتحديثاته وإعلاناته الرسمية، من الشبكات الجديدة إلى تطوير العقود والمجتمع، في مكان واحد ومحدَّث باستمرار.'],
   '/support/faq': ['الأسئلة الشائعة | الدعم والمساعدة في MD1USD', 'إجابات واضحة عن الأسئلة الشائعة حول MD1USD: كيف يعمل الربط بالدولار، وكيف تشتري وتحوّل العملة، وكيف تتحقق من الأمان والشبكات.'],
   '/contact': ['تواصل مع فريق MD1USD | القنوات الرسمية', 'طرق التواصل الرسمية مع مشروع MD1USD للاستفسارات والدعم والشراكات، مع تنبيه مهم لتجنب الحسابات المنتحلة وعدم مشاركة بياناتك الحساسة.'],
+  '/privacy': ['سياسة الخصوصية | MD1USD', 'سياسة الخصوصية لموقع MD1USD: البيانات التي نجمعها، واستخدام Google AdSense وملفات تعريف الارتباط وDART، وكيف تتحكم في بياناتك وإعلاناتك.'],
+  '/terms': ['الشروط والأحكام | MD1USD', 'شروط استخدام موقع MD1USD وإخلاء المسؤولية المالية وتنبيه المخاطر: لا استشارة مالية ولا وعود بأرباح، والأصول الرقمية قد تخسر قيمتها كاملة.'],
+  '/guides': ['الأدلة والمقالات | MD1USD', 'أدلة عربية أصلية عن العملات المستقرة والأمان والمخاطر واختيار الشبكة من فريق MD1USD، مكتوبة بلغة مبسطة وبعيدة عن الوعود المضللة.'],
+  '/guides/stablecoins-explained': ['ما هي العملة المستقرة وكيف تعمل؟ دليل المبتدئ | MD1USD', 'شرح مبسط للعملات المستقرة وأنواعها (المغطاة بأصول، المغطاة بعملات رقمية، الخوارزمية) وآلية السك والحرق وما الذي يحافظ على الارتباط بالدولار.'],
+  '/guides/verify-md1usd-contracts': ['كيف تتحقق من عقد MD1USD على مستكشف الشبكة | MD1USD', 'دليل عملي للتحقق من عنوان العقد على Etherscan وPolygonscan وBscScan وSolscan: العنوان الرسمي، الكود المُوثّق، الملكية، وعلامات التحذير.'],
+  '/guides/stablecoin-risks': ['مخاطر العملات المستقرة وكيف تحمي نفسك | MD1USD', 'شرح واضح لمخاطر العملات المستقرة: فقدان الارتباط، الاحتياطي، ثغرات العقود، السيولة، التنظيم، وكيف تتجنب الوعود المضللة.'],
+  '/guides/choosing-a-network': ['كيف تختار شبكة العملة المستقرة: إيثريوم أم Polygon أم BNB أم سولانا | MD1USD', 'مقارنة تعليمية بين أربع شبكات بلوكتشين لاستخدام العملات المستقرة: الرسوم والسرعة وتوافق المحافظ والسيولة، مع نصائح لتجنب أخطاء التحويل.'],
   '/developers/api': ['وثائق API للمطورين | التكامل مع MD1USD', 'وثائق وموارد API للمطورين الراغبين في التكامل مع MD1USD: نقاط الوصول وأمثلة الاستخدام والعقود الرسمية على الشبكات المدعومة.'],
 };
+// صفحات نصها قصير حاليًا (أقل من ~100 كلمة): تبقى متاحة بالروابط لكنها لا تُفهرس ولا تدخل الـ sitemap حتى يُكتب لها محتوى كافٍ.
+// عند توسيع محتوى صفحة، احذفها من هذه القائمة ومن التعليق في public/sitemap.xml أعد إضافتها.
+const NOINDEX = new Set([
+  '/roadmap', '/learn/blockchain-basics', '/learn/smart-contracts',
+  '/networks/ethereum', '/networks/polygon', '/networks/bnb', '/networks/solana', '/networks/comparison',
+  '/community', '/community/events', '/community/governance', '/community/voting', '/community/ambassadors',
+  '/news', '/announcements', '/case-studies', '/media-kit', '/support', '/support/faq', '/careers', '/bug-bounty',
+  '/partnerships', '/integrations', '/developers/api', '/developers/resources', '/dashboard',
+]);
 const dist = 'dist';
 const source = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 for (const [route, [title, description]] of Object.entries(routes)) {
@@ -37,5 +53,6 @@ for (const [route, [title, description]] of Object.entries(routes)) {
     .replace(/<meta property="og:title" content=".*?"\s*\/>?/i, `<meta property="og:title" content="${title}">`)
     .replace(/<meta property="og:description" content=".*?"\s*\/>?/i, `<meta property="og:description" content="${description}">`)
     .replace(/<link rel="canonical" href=".*?"\s*\/>?/i, `<link rel="canonical" href="https://md1usd.com${route === '/' ? '/' : route + '/'}">`);
+  if (NOINDEX.has(route)) html = html.replace(/<head>/i, '<head>\n    <meta name="robots" content="noindex,follow" />');
   fs.writeFileSync(target, html);
 }
